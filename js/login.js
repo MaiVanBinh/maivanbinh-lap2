@@ -21,7 +21,7 @@ eyeIcon.onclick = function(){
 
 function loginClick(){	
 	var name = document.querySelector("#user-name");
-	if(user.value != '' && checkName(user.value) && checkPasswork(password.value)) 	{
+	if((user.value == '' || checkName(user.value)) && (password.value == '' || checkPasswork(password.value))) 	{
 		name.innerHTML = user.value;
 		login.style.display = 'none';
 		hello.style.display = 'block';
@@ -38,15 +38,7 @@ function logoutClick(){
 }
 
 function checkName(str){
-	var format = /\s\s/;
-	if (format.test(str)){
-		return false;
-	}
-	format=/^\s/;
-	if (format.test(str)){
-		return false;
-	}
-	format=/\s$/;
+	var format = /\s\s|^\s|\s$|[^A-Za-z0-9_\s]/;
 	if (format.test(str)){
 		return false;
 	}
