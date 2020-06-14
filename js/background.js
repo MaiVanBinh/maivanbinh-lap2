@@ -1,25 +1,110 @@
 // Calculator
-function deleteOne() {
+const OPERATOR = ['+', '-', '*', '/'];
+const equalMultiTime = {value: 0};
+const equalBtn = document.getElementById('equal');
+
+equalBtn.addEventListener('click', () => {
+    equalMultiTime.value += 1;
     let inputValue = document.getElementById("value").value;
-    document.getElementById("value").value = inputValue.slice(0,inputValue.length-1);
+    if(inputValue === ''){
+        return;
+    }
+    const finalValue = document.getElementById("valueFinal").value;
+    let inputArray = inputValue.split(' ');
+    if(inputArray.length === 0) {
+        return document.getElementById('valueFinal').value = 0;
+    } else if (inputArray.length === 1){
+        return document.getElementById('valueFinal').value = inputArray[0];
+    }
+    if (inputArray[inputArray.length-1] === '' && OPERATOR.find(o => o === inputArray[inputArray.length-2])) {
+        return;
+    }
+    if(equalMultiTime.value > 1) {
+        inputArray = inputArray.slice(inputArray.length-2);
+        inputArray.unshift(finalValue);
+        document.getElementById("value").value = inputArray.join(' ');
+    }
+    let result = calculateResult(inputArray);
+    document.getElementById('valueFinal').value = result;
+})
+
+const calculateResult = (inputArray) => {
+    let result = 0;
+    let operator = '+';
+    const updateArray = inputArray.slice(0, inputArray.length-1);
+    for(let i = 0; i<= updateArray.length; i++) {
+        if(OPERATOR.find(o => o === inputArray[i]) && OPERATOR.find(o => o === inputArray[i])){
+            operator = inputArray[i];
+            continue;
+        }
+        switch(operator) {
+            case '+' : 
+                result += parseFloat(inputArray[i]);
+                continue;
+            case '-' : 
+                result -= parseFloat(inputArray[i]);
+                continue;
+            case '*' : 
+                result *= parseFloat(inputArray[i]);
+                continue;
+            case '/' : 
+                result /= parseFloat(inputArray[i]);
+                continue;
+            default: 
+                continue;
+        }
+    }
+    return result;
 }
+
+
+function deleteOne() {
+    equalMultiTime.value = 0;
+    let inputValue = document.getElementById("value").value;
+    let inputArray = inputValue.split(' ');
+    inputArray.pop();
+    document.getElementById("value").value = inputArray.join(' ');
+}
+
 function clearInput() {
+    equalMultiTime.value = 0;
+    document.getElementById('valueFinal').value = '0';
     document.getElementById("value").value = "";
 }
+
 function insertInput(str) {
+    equalMultiTime.value = 0;
     let inputValue = document.getElementById("value").value;
-    const operator = ['+', '-', '*', '/'];
+    // don't input 2 operator time by time
     if(inputValue){
-        let c = inputValue.slice(inputValue.length-1);
-        if(operator.find(o => o === str) && operator.find(o => o === c)){
+        let c = inputValue.slice(inputValue.length-2, inputValue.length-1);
+        if(OPERATOR.find(o => str === o) && OPERATOR.find(o => o === c) && inputValue.length > 2){
             return;
         }
     }
-    let format = /^[0-9]/;
-    if(format.test(inputValue + str)){
+    if(inputValue === '-') {
+        if(OPERATOR.find(o => str === o)){
+            return;
+        }
+    }
+    // don't start by + / *
+    if(inputValue === ''){
+        if(OPERATOR.find(o => str === o && str !== '-' )){
+            return;
+        }
+    }
+    let format = /^[0-9.]/;
+    // first input negative
+    if(str==='-' && inputValue ===''){
+        return document.getElementById("value").value = str;
+    }
+    if(inputValue[inputValue.length - 1] === '.' && str === '.'){
+        return;
+    }
+    if(format.test(str)){
         return document.getElementById("value").value = inputValue + str;
     }
-    return;
+    return document.getElementById("value").value = inputValue + ' ' + str + ' ';
 }
 
 // Background animate
@@ -33,7 +118,7 @@ window.addEventListener('scroll', function(){
     var value = window.scrollY;
 
     bg.style.top = value * 0.5 + 'px';
-    clock.style.marginLeft = value * 0.5 - 350 + 'px';
+    // clock.style.marginLeft = value * 0.5 - 350 + 'px';
     mountain.style.top = -value * 0.15 + 'px';
     road.style.top = value * 0.15 + 'px';
     text.style.top = value*1 - 180 + 'px';

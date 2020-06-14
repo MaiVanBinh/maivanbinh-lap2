@@ -1,36 +1,66 @@
 <!DOCTYPE html>
-<html lang="vi">
+<html lang="en">
 <head>
-	<meta charset="UTF-8">
-	<title>Đăng nhập</title>
-	<link rel="stylesheet" href="css/login-style.css">
-	<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">		
-	<script type="text/javascript" src="js/login.js" async></script>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Other exircises</title>
+    <link rel="stylesheet" href="./css/background.css">
 </head>
 <body>
-	<div>
-		<div class="login-page" id="login">
-			<h1>Đăng Nhập Tài Khoản</h1>
-			<div class="input-box">
-				<i class="fa fa-user-o"></i>
-				<input type="text" placeholder="Họ và Tên" id="user">
-			</div>
-			<div class="input-box">
-				<i class="fa fa-key"></i>
-				<input type="password" placeholder="Mật khẩu" id="pwd">
-				<span class="eye" id="eye-icon">
-					<i class="fa fa-eye" id="hide-eye"></i>
-					<i class="fa fa-eye-slash" id="hide-eye-slash"></i>
-				</span>
-			</div>
-			<button type="button" class="login-button" onclick="loginClick()">Đăng nhập</button>
-			<a href="many-things.html" style="text-decoration: none; color: white;"><button class="login-button">Bài Tập Khác</button></a>
-		</div>
-		<div class="login-page" id="hello">
-			<h3>Xin chào</h3>
-			<h1 id="user-name">Tên Đăng Nhập</h1>
-			<p><a href="#" onclick="logoutClick()">Đăng xuất?</a></p>
-		</div>
-	</div>
+    <div class="clockBx">
+        <div class="clock" id="clock">
+            <div class="hour">
+                <div class="hr" id="hr"></div>
+            </div>
+            <div class="min">
+                <div class="mn" id="mn"></div>
+            </div>
+            <div class="sec">
+                <div class="sc" id="sc"></div>
+            </div>
+        </div>
+    </div>
+        <section>
+            <img src="./images/bg1.jpg" alt="bg" id="bg">
+            <img src="./images/mountain.png" alt="mountain" id="mountain">
+            <img src="./images/road.png" alt="road" id="road">
+            <div id="text">
+                <h2>Countdown 2021</h2>
+                <div class="countdown">
+                    <div id="day">NA</div>
+                    <div id="hour">NA</div>
+                    <div id="minute">NA</div>
+                    <div id="second">NA</div>
+                </div>
+            </div>
+        </section>
+    <div class="calBox">
+        <div class="center">
+            <form name="forms">
+              <input type="text" id="value" name="display" disabled>
+              <input  id="valueFinal" class="value" type="text" name="txt" readonly="">
+              <div class="buttons">
+                <input type="button" id="seven" value="7" onclick="insertInput('7')">
+                <input type="button" id="eight" value="8" onclick="insertInput('8')">
+                <input type="button" id="nine" value="9" onclick="insertInput('9')">
+                <input type="button" id="divide" value="/" onclick="insertInput('/')"><br>
+                <input type="button" id="four" value="4" onclick="insertInput('4')">
+                <input type="button" id="five" value="5" onclick="insertInput('5')">
+                <input type="button" id="six" value="6" onclick="insertInput('6')">
+                <input type="button" id="multi" value="*" onclick="insertInput('*')"><br>
+                <input type="button" id="one" value="1" onclick="insertInput('1')">
+                <input type="button" id="two" value="2" onclick="insertInput('2')">
+                <input type="button" id="three" value="3" onclick="insertInput('3')">
+                <input type="button" id="subs" value="-" onclick="insertInput('-')"><br>
+                <input type="button" id="dot" value="." onclick="insertInput('.')">
+                <input type="button" id="zero" value="0" onclick="insertInput('0')">
+                <input type="button" id="add" value="+" onclick="insertInput('+')">
+                <input type="button" id="clear" value="C" onclick="clearInput()"><br>
+                <input type="button" id="equal" value="=">
+              </div>
+      </form>
+      </div>
+    </div>
+    <script type="text/javascript" src="./js/background.js"></script>
 </body>
 </html>
